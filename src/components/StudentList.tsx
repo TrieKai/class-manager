@@ -10,7 +10,7 @@ import {
   MenuButton,
   Tooltip,
 } from "./styles";
-import { Student } from "../types/student";
+import type { Student } from "../types/student";
 
 interface Props {
   students: Student[];
@@ -18,17 +18,17 @@ interface Props {
 
 const StudentList: FC<Props> = ({ students }) => {
   const dispatch = useDispatch();
-  const [tooltipStudent, setTooltipStudent] = useState<number | null>(null);
+  const [tooltipStudent, setTooltipStudent] = useState<string | null>(null);
 
-  const handleIncrement = (id: number) => {
+  const handleIncrement = (id: string): void => {
     dispatch(incrementCount(id));
   };
 
-  const handleDecrement = (id: number) => {
+  const handleDecrement = (id: string): void => {
     dispatch(decrementCount(id));
   };
 
-  const toggleTooltip = (id: number) => {
+  const toggleTooltip = (id: string): void => {
     setTooltipStudent(tooltipStudent === id ? null : id);
   };
 

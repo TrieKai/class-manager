@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Student, ViewMode } from "../types/student";
+import type { Student, ViewMode } from "../types/student";
 
 interface StudentState {
   students: Student[];
@@ -20,13 +20,13 @@ export const studentSlice = createSlice({
     setStudents: (state, action: PayloadAction<Student[]>) => {
       state.students = action.payload;
     },
-    incrementCount: (state, action: PayloadAction<number>) => {
+    incrementCount: (state, action: PayloadAction<string>) => {
       const student = state.students.find((s) => s.id === action.payload);
       if (student && !student.disabled) {
         student.count += 1;
       }
     },
-    decrementCount: (state, action: PayloadAction<number>) => {
+    decrementCount: (state, action: PayloadAction<string>) => {
       const student = state.students.find((s) => s.id === action.payload);
       if (student && !student.disabled && student.count > 0) {
         student.count -= 1;

@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { setViewMode, toggleModal } from "../store/studentSlice";
+import { setStudents, setViewMode, toggleModal } from "../store/studentSlice";
 import StudentList from "./StudentList";
 import GroupView from "./GroupView";
+import { fetchStudents } from "@/utils/api";
 import { Modal, Header, CloseButton, TabContainer, Tab } from "./styles";
 
 const ClassModal: FC = () => {
@@ -12,11 +13,22 @@ const ClassModal: FC = () => {
     (state: RootState) => state.student
   );
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     dispatch(toggleModal());
   };
 
-  if (!isModalOpen) return null;
+  useEffect(() => {
+    const loadData = async (): Promise<void> => {
+      const students = await fetchStudents();
+      dispatch(setStudents(students));
+    };
+
+    void loadData();
+  }, [dispatch]);
+
+  if (!isModalOpen) {
+    return null;
+  }
 
   return (
     <Modal>

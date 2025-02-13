@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 import { StudentGrid, StudentCard } from "./styles";
-import { Student } from "../types/student";
+import type { Student } from "../types/student";
 
 const GroupContainer = styled.div`
   display: flex;

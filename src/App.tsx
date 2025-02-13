@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setStudents } from "./store/studentSlice";
-import { fetchStudents } from "./utils/api";
+import { FC } from "react";
 import ClassModal from "./components/ClassModal";
 import { createGlobalStyle } from "styled-components";
 import { AppContainer, ModalContainer } from "./components/styles";
@@ -24,17 +21,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const App: React.FC = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const loadData = async () => {
-      const students = await fetchStudents();
-      dispatch(setStudents(students));
-    };
-    loadData();
-  }, [dispatch]);
-
+const App: FC = () => {
   return (
     <>
       <GlobalStyle />

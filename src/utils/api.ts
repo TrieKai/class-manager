@@ -2,7 +2,7 @@ import { Student, ClassInfo } from "../types/student";
 
 const mockStudents: Student[] = [
   {
-    id: 1,
+    id: crypto.randomUUID(),
     name: "Philip",
     position: "01",
     count: 1,
@@ -10,7 +10,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 2,
+    id: crypto.randomUUID(),
     name: "Darrell",
     position: "02",
     count: 5,
@@ -18,7 +18,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 3,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "03",
     count: 0,
@@ -26,7 +26,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 4,
+    id: crypto.randomUUID(),
     name: "Cody",
     position: "04",
     count: 9,
@@ -34,7 +34,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 5,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "05",
     count: 0,
@@ -42,7 +42,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 6,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "06",
     count: 0,
@@ -50,7 +50,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 7,
+    id: crypto.randomUUID(),
     name: "Bessie",
     position: "07",
     count: 3,
@@ -58,7 +58,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 8,
+    id: crypto.randomUUID(),
     name: "Wendy",
     position: "08",
     count: 0,
@@ -66,7 +66,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 9,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "09",
     count: 0,
@@ -74,7 +74,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 10,
+    id: crypto.randomUUID(),
     name: "Esther",
     position: "10",
     count: 1,
@@ -82,7 +82,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 11,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "11",
     count: 0,
@@ -90,7 +90,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 12,
+    id: crypto.randomUUID(),
     name: "Gloria",
     position: "12",
     count: 1,
@@ -98,7 +98,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 13,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "13",
     count: 0,
@@ -106,7 +106,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 14,
+    id: crypto.randomUUID(),
     name: "Lee",
     position: "14",
     count: 2,
@@ -114,7 +114,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 15,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "15",
     count: 0,
@@ -122,7 +122,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 16,
+    id: crypto.randomUUID(),
     name: "Ann",
     position: "16",
     count: 0,
@@ -130,7 +130,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 17,
+    id: crypto.randomUUID(),
     name: "Jacob",
     position: "17",
     count: 8,
@@ -138,7 +138,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 18,
+    id: crypto.randomUUID(),
     name: "Calvin",
     position: "18",
     count: 2,
@@ -146,7 +146,7 @@ const mockStudents: Student[] = [
     disabled: false,
   },
   {
-    id: 19,
+    id: crypto.randomUUID(),
     name: "Guest",
     position: "19",
     count: 0,
@@ -154,7 +154,7 @@ const mockStudents: Student[] = [
     disabled: true,
   },
   {
-    id: 20,
+    id: crypto.randomUUID(),
     name: "Joe",
     position: "20",
     count: 0,
