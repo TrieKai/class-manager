@@ -1,50 +1,46 @@
-import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
-import { incrementCount, decrementCount } from "../store/studentSlice";
+import { FC } from "react";
+import {
+  useGetStudentsQuery,
+  useUpdateStudentCountMutation,
+} from "../services/api";
 import {
   StudentGrid,
   StudentCard,
   CounterContainer,
   Counter,
   CountButton,
-  MenuButton,
-  Tooltip,
 } from "./styles";
-import type { Student } from "../types/student";
 
-interface Props {
-  students: Student[];
-}
+const StudentList: FC = () => {
+  const { data: students } = useGetStudentsQuery();
+  const [updateCount] = useUpdateStudentCountMutation();
 
-const StudentList: FC<Props> = ({ students }) => {
-  const dispatch = useDispatch();
-  const [tooltipStudent, setTooltipStudent] = useState<string | null>(null);
-
-  const handleIncrement = (id: string): void => {
-    dispatch(incrementCount(id));
+  const handleIncrement = async (id: string): Promise<void> => {
+    try {
+      await updateCount({ id, increment: true }).unwrap();
+    } catch (error) {
+      console.error("Failed to increment count:", error);
+    }
   };
 
-  const handleDecrement = (id: string): void => {
-    dispatch(decrementCount(id));
+  const handleDecrement = async (id: string): Promise<void> => {
+    try {
+      await updateCount({ id, increment: false }).unwrap();
+    } catch (error) {
+      console.error("Failed to decrement count:", error);
+    }
   };
 
-  const toggleTooltip = (id: string): void => {
-    setTooltipStudent(tooltipStudent === id ? null : id);
-  };
+  if (!students) {
+    return null;
+  }
 
   return (
     <StudentGrid>
       {students.map((student) => (
         <StudentCard key={student.id} isGuest={student.isGuest}>
-          <MenuButton onClick={() => toggleTooltip(student.id)}>...</MenuButton>
-          {tooltipStudent === student.id && (
-            <Tooltip>
-              <div>Student Details</div>
-              <div>Position: {student.position}</div>
-            </Tooltip>
-          )}
-          <div>{student.position}</div>
           <div>{student.name}</div>
+          <div>{student.position}</div>
           <CounterContainer>
             <Counter>
               <CountButton

@@ -1,92 +1,104 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { X } from "lucide-react";
 import { RootState } from "../store";
-import { setViewMode, toggleModal } from "../store/studentSlice";
-import { useGetStudentsQuery, useGetClassInfoQuery } from "../services/api";
-import StudentList from "./StudentList";
-import GroupView from "./GroupView";
+import { setViewMode } from "../store/studentSlice";
 import {
-  Modal,
-  Header,
+  registerModal,
+  toggleModalVisibility,
+  selectModalVisibility,
+  unregisterModal,
+} from "../store/modalSlice";
+import { useGetStudentsQuery, useGetClassInfoQuery } from "../services/api";
+import { Tabs, TabItem } from "./atoms/Tabs";
+import StudentList from "./StudentList";
+import StudentGroup from "./StudentGroup";
+import {
   CloseButton,
-  TabContainer,
-  Tab,
+  Header,
+  Title,
+  Content,
   ModalContainer,
+  Modal,
 } from "./styles";
+
+const MODAL_ID = "class-modal";
 
 const ClassModal: FC = () => {
   const dispatch = useDispatch();
-  const { viewMode, isModalOpen } = useSelector(
-    (state: RootState) => state.student
-  );
+  const isVisible = useSelector(selectModalVisibility(MODAL_ID));
+  const viewMode = useSelector((state: RootState) => state.student.viewMode);
   const { data: students, isLoading: isLoadingStudents } =
     useGetStudentsQuery();
   const { data: classInfo, isLoading: isLoadingClassInfo } =
     useGetClassInfoQuery();
 
+  useEffect(() => {
+    dispatch(registerModal({ id: MODAL_ID, visible: true }));
+    return () => {
+      dispatch(unregisterModal({ modalId: MODAL_ID }));
+    };
+  }, [dispatch]);
+
   const handleClose = (): void => {
-    dispatch(toggleModal());
+    dispatch(toggleModalVisibility({ id: MODAL_ID, visible: false }));
   };
 
-  if (!isModalOpen) return null;
-
-  if (isLoadingStudents || isLoadingClassInfo) {
-    return (
-      <ModalContainer>
-        <Modal>
-          <Header>
-            <div>Loading...</div>
-          </Header>
-        </Modal>
-      </ModalContainer>
-    );
+  if (!isVisible) {
+    return null;
   }
 
-  if (!students || !classInfo) {
-    return (
-      <ModalContainer>
-        <Modal>
-          <Header>
-            <div>Error loading data</div>
-          </Header>
-        </Modal>
-      </ModalContainer>
-    );
+  if (isLoadingStudents || isLoadingClassInfo || !students || !classInfo) {
+    return <div>Loading...</div>;
   }
+
+  const tabItems: TabItem[] = [
+    { key: "list", label: "List View" },
+    { key: "group", label: "Group View" },
+  ];
+
+  const menuItems = [
+    {
+      label: "Edit Class",
+      onClick: () => {
+        console.log("Edit class clicked");
+      },
+    },
+    {
+      label: "Delete Class",
+      onClick: () => {
+        console.log("Delete class clicked");
+      },
+    },
+  ];
 
   return (
     <ModalContainer>
       <Modal>
         <Header>
-          <div>
-            <h2>{classInfo.name}</h2>
-            <p>
-              {classInfo.currentCount}/{classInfo.maxCount}
-            </p>
-          </div>
-          <CloseButton onClick={handleClose}>×</CloseButton>
+          <Title>
+            {classInfo.name}
+            <div>
+              Class ID: {classInfo.id}
+              <br />
+              Students: {classInfo.currentCount}/{classInfo.maxCount}
+            </div>
+          </Title>
+          <CloseButton onClick={handleClose}>
+            <X size={24} />
+          </CloseButton>
         </Header>
 
-        <TabContainer>
-          <Tab
-            active={viewMode === "list"}
-            onClick={() => dispatch(setViewMode("list"))}
-          >
-            Student List
-          </Tab>
-          <Tab
-            active={viewMode === "group"}
-            onClick={() => dispatch(setViewMode("group"))}
-          >
-            Group
-          </Tab>
-        </TabContainer>
+        <Content>
+          <Tabs
+            items={tabItems}
+            activeKey={viewMode}
+            onChange={(key) => dispatch(setViewMode(key as "list" | "group"))}
+            menuItems={menuItems}
+          />
 
-        {viewMode === "list" ? (
-          <StudentList students={students} />
-        ) : (
-          <GroupView students={students} />
-        )}
+          {viewMode === "list" ? <StudentList /> : <StudentGroup />}
+        </Content>
       </Modal>
     </ModalContainer>
   );

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Student, ClassInfo } from "../types/student";
 
-const mockStudents: Student[] = [
+const initialMockStudents: Student[] = [
   {
     id: crypto.randomUUID(),
     name: "Philip",
@@ -164,7 +164,9 @@ const mockStudents: Student[] = [
   },
 ];
 
-const mockClassInfo: ClassInfo = {
+// use let instead of const, so that it can be updated
+let mockStudents = [...initialMockStudents];
+let mockClassInfo: ClassInfo = {
   name: "302 Science",
   id: "X58E9647",
   currentCount: 16,
@@ -177,22 +179,74 @@ const BASE_URL = "https://api.example.com";
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  tagTypes: ["Students"],
   endpoints: (builder) => ({
     getStudents: builder.query<Student[], void>({
       queryFn: async () => {
         // mock API delay
         await new Promise((resolve) => setTimeout(resolve, 500));
-        return { data: mockStudents };
+        return { data: [...mockStudents] };
       },
+      providesTags: ["Students"],
     }),
     getClassInfo: builder.query<ClassInfo, void>({
       queryFn: async () => {
         // mock API delay
         await new Promise((resolve) => setTimeout(resolve, 500));
-        return { data: mockClassInfo };
+        return { data: { ...mockClassInfo } };
       },
+      providesTags: ["Students"],
+    }),
+    updateStudentCount: builder.mutation<
+      Student,
+      { id: string; increment: boolean }
+    >({
+      queryFn: async ({ id, increment }) => {
+        // mock API delay
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        const studentIndex = mockStudents.findIndex((s) => s.id === id);
+        if (studentIndex === -1) {
+          return { error: { status: 404, data: "Student not found" } };
+        }
+
+        const student = mockStudents[studentIndex];
+        if (student.disabled) {
+          return { error: { status: 400, data: "Student is disabled" } };
+        }
+
+        if (!increment && student.count === 0) {
+          return { error: { status: 400, data: "Count cannot be negative" } };
+        }
+
+        // create a new student object
+        const updatedStudent = {
+          ...student,
+          count: increment ? student.count + 1 : student.count - 1,
+        };
+
+        // update the mock database
+        mockStudents = [
+          ...mockStudents.slice(0, studentIndex),
+          updatedStudent,
+          ...mockStudents.slice(studentIndex + 1),
+        ];
+
+        // update class info
+        mockClassInfo = {
+          ...mockClassInfo,
+          currentCount: mockClassInfo.currentCount + (increment ? 1 : -1),
+        };
+
+        return { data: updatedStudent };
+      },
+      invalidatesTags: ["Students"],
     }),
   }),
 });
 
-export const { useGetStudentsQuery, useGetClassInfoQuery } = api;
+export const {
+  useGetStudentsQuery,
+  useGetClassInfoQuery,
+  useUpdateStudentCountMutation,
+} = api;
