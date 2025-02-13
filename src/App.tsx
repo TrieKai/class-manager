@@ -1,8 +1,8 @@
 import { FC } from "react";
 import ClassModal from "./components/ClassModal";
+import QRCodeModal from "./components/QRCodeModal";
 import { createGlobalStyle } from "styled-components";
-import { AppContainer, ModalContainer } from "./components/styles";
-import { QRCodeCanvas } from "qrcode.react";
+import { AppContainer } from "./components/styles";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -26,15 +26,8 @@ const App: FC = () => {
     <>
       <GlobalStyle />
       <AppContainer>
-        <ModalContainer>
-          <QRCodeCanvas
-            value="https://www.classswift.viewsonic.io/"
-            size={300}
-          />
-        </ModalContainer>
-        <ModalContainer>
-          <ClassModal />
-        </ModalContainer>
+        <QRCodeModal />
+        <ClassModal />
       </AppContainer>
     </>
   );

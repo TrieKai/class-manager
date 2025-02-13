@@ -28,6 +28,59 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  p {
+    margin: 5px 0 0;
+    color: #666;
+  }
+`;
+
+export const InfoContainer = styled.div`
+  margin: 20px 0;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+`;
+
+export const InfoItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  span {
+    color: #495057;
+  }
+`;
+
+export const IconButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: #6c757d;
+  border-radius: 4px;
+
+  &:hover {
+    background: #e9ecef;
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: #28a745;
+  }
 `;
 
 export const CloseButton = styled.button`

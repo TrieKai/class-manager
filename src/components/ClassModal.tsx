@@ -1,66 +1,94 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
-import { setStudents, setViewMode, toggleModal } from "../store/studentSlice";
+import { setViewMode, toggleModal } from "../store/studentSlice";
+import { useGetStudentsQuery, useGetClassInfoQuery } from "../services/api";
 import StudentList from "./StudentList";
 import GroupView from "./GroupView";
-import { fetchStudents } from "@/utils/api";
-import { Modal, Header, CloseButton, TabContainer, Tab } from "./styles";
+import {
+  Modal,
+  Header,
+  CloseButton,
+  TabContainer,
+  Tab,
+  ModalContainer,
+} from "./styles";
 
 const ClassModal: FC = () => {
   const dispatch = useDispatch();
-  const { students, viewMode, isModalOpen } = useSelector(
+  const { viewMode, isModalOpen } = useSelector(
     (state: RootState) => state.student
   );
+  const { data: students, isLoading: isLoadingStudents } =
+    useGetStudentsQuery();
+  const { data: classInfo, isLoading: isLoadingClassInfo } =
+    useGetClassInfoQuery();
 
   const handleClose = (): void => {
     dispatch(toggleModal());
   };
 
-  useEffect(() => {
-    const loadData = async (): Promise<void> => {
-      const students = await fetchStudents();
-      dispatch(setStudents(students));
-    };
+  if (!isModalOpen) return null;
 
-    void loadData();
-  }, [dispatch]);
+  if (isLoadingStudents || isLoadingClassInfo) {
+    return (
+      <ModalContainer>
+        <Modal>
+          <Header>
+            <div>Loading...</div>
+          </Header>
+        </Modal>
+      </ModalContainer>
+    );
+  }
 
-  if (!isModalOpen) {
-    return null;
+  if (!students || !classInfo) {
+    return (
+      <ModalContainer>
+        <Modal>
+          <Header>
+            <div>Error loading data</div>
+          </Header>
+        </Modal>
+      </ModalContainer>
+    );
   }
 
   return (
-    <Modal>
-      <Header>
-        <div>
-          <h2>302 Science</h2>
-          <p>16/30</p>
-        </div>
-        <CloseButton onClick={handleClose}>×</CloseButton>
-      </Header>
+    <ModalContainer>
+      <Modal>
+        <Header>
+          <div>
+            <h2>{classInfo.name}</h2>
+            <p>
+              {classInfo.currentCount}/{classInfo.maxCount}
+            </p>
+          </div>
+          <CloseButton onClick={handleClose}>×</CloseButton>
+        </Header>
 
-      <TabContainer>
-        <Tab
-          active={viewMode === "list"}
-          onClick={() => dispatch(setViewMode("list"))}
-        >
-          Student List
-        </Tab>
-        <Tab
-          active={viewMode === "group"}
-          onClick={() => dispatch(setViewMode("group"))}
-        >
-          Group
-        </Tab>
-      </TabContainer>
+        <TabContainer>
+          <Tab
+            active={viewMode === "list"}
+            onClick={() => dispatch(setViewMode("list"))}
+          >
+            Student List
+          </Tab>
+          <Tab
+            active={viewMode === "group"}
+            onClick={() => dispatch(setViewMode("group"))}
+          >
+            Group
+          </Tab>
+        </TabContainer>
 
-      {viewMode === "list" ? (
-        <StudentList students={students} />
-      ) : (
-        <GroupView students={students} />
-      )}
-    </Modal>
+        {viewMode === "list" ? (
+          <StudentList students={students} />
+        ) : (
+          <GroupView students={students} />
+        )}
+      </Modal>
+    </ModalContainer>
   );
 };
 

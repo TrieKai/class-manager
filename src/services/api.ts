@@ -1,11 +1,12 @@
-import { Student, ClassInfo } from "../types/student";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { Student, ClassInfo } from "../types/student";
 
 const mockStudents: Student[] = [
   {
     id: crypto.randomUUID(),
     name: "Philip",
     position: "01",
-    count: 1,
+    count: 2,
     isGuest: false,
     disabled: false,
   },
@@ -170,18 +171,28 @@ const mockClassInfo: ClassInfo = {
   maxCount: 30,
 };
 
-export const fetchStudents = async (): Promise<Student[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockStudents);
-    }, 500);
-  });
-};
+// In a real environment, this would be the actual API URL
+const BASE_URL = "https://api.example.com";
 
-export const fetchClassInfo = async (): Promise<ClassInfo> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockClassInfo);
-    }, 500);
-  });
-};
+export const api = createApi({
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+  endpoints: (builder) => ({
+    getStudents: builder.query<Student[], void>({
+      queryFn: async () => {
+        // mock API delay
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return { data: mockStudents };
+      },
+    }),
+    getClassInfo: builder.query<ClassInfo, void>({
+      queryFn: async () => {
+        // mock API delay
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        return { data: mockClassInfo };
+      },
+    }),
+  }),
+});
+
+export const { useGetStudentsQuery, useGetClassInfoQuery } = api;
