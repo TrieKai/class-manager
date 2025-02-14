@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 export const TabContainer = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
 `;
 
 export const Tab = styled.button<{ active: boolean }>`
@@ -18,11 +19,4 @@ export const Tab = styled.button<{ active: boolean }>`
   &:hover {
     background: ${(props) => (props.active ? "#0056b3" : "#e0e0e0")};
   }
-`;
-
-export const TabsHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
 `;

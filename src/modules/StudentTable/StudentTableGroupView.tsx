@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { StudentGrid, StudentCard } from "./styles";
-import type { Student } from "../types/student";
+import type { Student } from "../../types/student";
 
 const GroupContainer = styled.div`
   display: flex;
@@ -14,11 +13,29 @@ const GroupTitle = styled.h3`
   padding: 10px 0;
 `;
 
+const StudentGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 16px;
+`;
+
+const StudentCard = styled.div<{ isGuest: boolean }>`
+  position: relative;
+  padding: 16px;
+  background: ${(props) => (props.isGuest ? "#f5f5f5" : "white")};
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 interface Props {
   students: Student[];
 }
 
-const GroupView: FC<Props> = ({ students }) => {
+const StudentTableGroupView: FC<Props> = ({ students }) => {
   const groups = students.reduce((acc: Student[][], student, index) => {
     const groupIndex = Math.floor(index / 5);
     if (!acc[groupIndex]) {
@@ -47,4 +64,4 @@ const GroupView: FC<Props> = ({ students }) => {
   );
 };
 
-export default GroupView;
+export default StudentTableGroupView;

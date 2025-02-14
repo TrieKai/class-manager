@@ -1,27 +1,35 @@
 import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
-import { Check, ChevronLeft, Copy, X } from "lucide-react";
+import { Check, ChevronLeft, Copy } from "lucide-react";
 import styled from "styled-components";
-import { useGetClassInfoQuery } from "../services/api";
+import { useGetClassInfoQuery } from "../../services/api";
 import {
   registerModal,
   unregisterModal,
   toggleModalVisibility,
   selectModalVisibility,
-} from "../store/modalSlice";
-import {
-  Modal,
-  Header,
-  QRCodeContainer,
-  ModalContainer,
-  CloseButton,
-} from "./styles";
+} from "../../store/modalSlice";
+import { Modal } from "../../components/Modal";
 
 const MODAL_ID = "qrcode-modal";
 
+const QRCodeModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const BackButton = styled.button`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  border: none;
+  background: none;
   flex-direction: row;
   align-items: center;
   align-self: flex-start;
@@ -59,19 +67,17 @@ const IconButton = styled.button`
   }
 `;
 
+const QRCodeContainer = styled.div`
+  text-align: center;
+  margin: 20px 0;
+`;
+
 const QRCodeModal: FC = () => {
   const dispatch = useDispatch();
   const isVisible = useSelector(selectModalVisibility(MODAL_ID));
   const { data: classInfo, isLoading } = useGetClassInfoQuery();
   const [copiedId, setCopiedId] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
-
-  useEffect(() => {
-    dispatch(registerModal({ id: MODAL_ID, visible: true }));
-    return () => {
-      dispatch(unregisterModal({ modalId: MODAL_ID }));
-    };
-  }, [dispatch]);
 
   const handleClose = (): void => {
     dispatch(toggleModalVisibility({ id: MODAL_ID, visible: false }));
@@ -91,43 +97,38 @@ const QRCodeModal: FC = () => {
     setTimeout(() => setCopiedLink(false), 2000);
   };
 
+  useEffect(() => {
+    dispatch(registerModal({ id: MODAL_ID, visible: true }));
+    return () => {
+      dispatch(unregisterModal({ modalId: MODAL_ID }));
+    };
+  }, [dispatch]);
+
   if (!isVisible) {
     return null;
   }
 
   if (isLoading) {
-    return (
-      <ModalContainer>
-        <Modal>Loading...</Modal>
-      </ModalContainer>
-    );
+    return <div>Loading...</div>;
   }
 
   if (!classInfo) {
-    return (
-      <ModalContainer>
-        <Modal>Error loading class info</Modal>
-      </ModalContainer>
-    );
+    return <div>Error loading class info</div>;
   }
 
   return (
-    <ModalContainer>
-      <Modal>
-        <BackButton>
-          <ChevronLeft size={24} />
-          Back to Class List
-        </BackButton>
-
-        <Header>
-          <div>
-            <h2>Join {classInfo.name}</h2>
-          </div>
-          <CloseButton onClick={handleClose}>
-            <X size={24} />
-          </CloseButton>
-        </Header>
-
+    <QRCodeModalContainer>
+      <Modal
+        title={
+          <BackButton>
+            <ChevronLeft size={24} />
+            Back to Class List
+          </BackButton>
+        }
+        isOpen={isVisible}
+        onClose={handleClose}
+      >
+        Join Class
         <InfoContainer>
           <span>ID: {classInfo.id}</span>
           <IconButton onClick={handleCopyId}>
@@ -138,7 +139,6 @@ const QRCodeModal: FC = () => {
             {copiedLink ? <Check size={16} /> : <Copy size={16} />}
           </IconButton>
         </InfoContainer>
-
         <QRCodeContainer>
           <QRCodeCanvas
             value="https://www.classswift.viewsonic.io/"
@@ -146,7 +146,7 @@ const QRCodeModal: FC = () => {
           />
         </QRCodeContainer>
       </Modal>
-    </ModalContainer>
+    </QRCodeModalContainer>
   );
 };
 

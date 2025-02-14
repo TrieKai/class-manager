@@ -1,18 +1,20 @@
 import { FC } from "react";
+import { Student } from "../../types/student";
+import { useUpdateStudentCountMutation } from "../../services/api";
 import {
-  useGetStudentsQuery,
-  useUpdateStudentCountMutation,
-} from "../services/api";
-import {
-  StudentGrid,
-  StudentCard,
+  CardContainer,
+  CardGrid,
+  StudentItem,
   CounterContainer,
   Counter,
   CountButton,
 } from "./styles";
 
-const StudentList: FC = () => {
-  const { data: students } = useGetStudentsQuery();
+interface GroupCardProps {
+  students: Student[];
+}
+
+export const GroupCard: FC<GroupCardProps> = ({ students }) => {
   const [updateCount] = useUpdateStudentCountMutation();
 
   const handleIncrement = async (id: string): Promise<void> => {
@@ -31,16 +33,14 @@ const StudentList: FC = () => {
     }
   };
 
-  if (!students) {
-    return null;
-  }
-
   return (
-    <StudentGrid>
+    <CardGrid>
       {students.map((student) => (
-        <StudentCard key={student.id} isGuest={student.isGuest}>
-          <div>{student.name}</div>
-          <div>{student.position}</div>
+        <CardContainer key={student.id} isGuest={student.isGuest}>
+          <StudentItem>
+            <div>{student.name}</div>
+            <div>{student.position}</div>
+          </StudentItem>
           <CounterContainer>
             <Counter>
               <CountButton
@@ -58,10 +58,8 @@ const StudentList: FC = () => {
               </CountButton>
             </Counter>
           </CounterContainer>
-        </StudentCard>
+        </CardContainer>
       ))}
-    </StudentGrid>
+    </CardGrid>
   );
 };
-
-export default StudentList;
