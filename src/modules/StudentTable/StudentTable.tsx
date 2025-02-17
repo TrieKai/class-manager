@@ -35,7 +35,7 @@ export const StudentTable: FC = () => {
   ];
 
   if (!students) {
-    return null; // TODO: no data
+    return null;
   }
 
   return (

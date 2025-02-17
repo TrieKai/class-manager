@@ -10,6 +10,7 @@ import {
 import { useGetStudentsQuery, useGetClassInfoQuery } from "@/services/api";
 import { StudentTable } from "@/modules/StudentTable";
 import { Modal } from "@/components/Modal";
+import { Skeleton } from "@/components/Skeleton";
 import { ClassInfo, Content, TitleContainer } from "./styles";
 
 const MODAL_ID = "student-modal";
@@ -37,21 +38,34 @@ const StudentModal: FC = () => {
     return null;
   }
 
-  if (isLoadingStudents || isLoadingClassInfo || !students || !classInfo) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Modal isOpen={isVisible} onClose={handleClose}>
       <Content>
-        <TitleContainer>
-          <ClassInfo>{classInfo.name}</ClassInfo>
-          <User size={16} />
-          <p>
-            {classInfo.currentCount}/{classInfo.maxCount}
-          </p>
-        </TitleContainer>
-        <StudentTable />
+        {(isLoadingStudents || isLoadingClassInfo || !students || !classInfo) ? (
+          <>
+            <TitleContainer>
+              <Skeleton width="128px" height="24px" />
+              <User size={16} />
+              <Skeleton width="64px" height="16px" />
+            </TitleContainer>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <Skeleton width="100%" height="40px" />
+              <Skeleton width="100%" height="40px" />
+              <Skeleton width="100%" height="40px" />
+            </div>
+          </>
+        ) : (
+          <>
+            <TitleContainer>
+              <ClassInfo>{classInfo.name}</ClassInfo>
+              <User size={16} />
+              <p>
+                {classInfo.currentCount}/{classInfo.maxCount}
+              </p>
+            </TitleContainer>
+            <StudentTable />
+          </>
+        )}
       </Content>
     </Modal>
   );

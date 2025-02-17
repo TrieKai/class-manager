@@ -10,6 +10,7 @@ import {
   selectModalVisibility,
 } from "@/store/modalSlice";
 import { Modal } from "@/components/Modal";
+import { Skeleton } from "@/components/Skeleton";
 import pkg from "../../../package.json";
 import {
   BackButton,
@@ -64,14 +65,6 @@ const QRCodeModal: FC = () => {
     return null;
   }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!classInfo) {
-    return <div>Error loading class info</div>;
-  }
-
   return (
     <QRCodeModalContainer>
       <Modal isOpen={isVisible} onClose={handleClose}>
@@ -80,28 +73,53 @@ const QRCodeModal: FC = () => {
             <ChevronLeft size={24} />
             Back to Class List
           </BackButton>
-          <ClassInfo>Join {classInfo.name}</ClassInfo>
-          <InfoContainer>
-            <Info>
-              <span>ID: {classInfo.id}</span>
-              <IconButton onClick={handleCopyId}>
-                {copiedId ? <Check size={16} /> : <Copy size={16} />}
-              </IconButton>
-            </Info>
-            <Info>
-              <span>Link</span>
-              <IconButton onClick={handleCopyLink}>
-                {copiedLink ? <Check size={16} /> : <Copy size={16} />}
-              </IconButton>
-            </Info>
-          </InfoContainer>
-          <QRCodeContainer>
-            <QRCodeCanvas
-              value={URL}
-              style={{ width: "100%", height: "auto" }}
-            />
-          </QRCodeContainer>
-          <Version>Version {VERSION}</Version>
+          {isLoading || !classInfo ? (
+            <>
+              <Skeleton width="200px" height="24px" />
+              <InfoContainer>
+                <Info>
+                  <Skeleton width="150px" height="20px" />
+                  <IconButton>
+                    <Copy size={16} />
+                  </IconButton>
+                </Info>
+                <Info>
+                  <Skeleton width="100px" height="20px" />
+                  <IconButton>
+                    <Copy size={16} />
+                  </IconButton>
+                </Info>
+              </InfoContainer>
+              <QRCodeContainer>
+                <Skeleton width="100%" height="300px" />
+              </QRCodeContainer>
+            </>
+          ) : (
+            <>
+              <ClassInfo>Join {classInfo.name}</ClassInfo>
+              <InfoContainer>
+                <Info>
+                  <span>ID: {classInfo.id}</span>
+                  <IconButton onClick={handleCopyId}>
+                    {copiedId ? <Check size={16} /> : <Copy size={16} />}
+                  </IconButton>
+                </Info>
+                <Info>
+                  <span>Link</span>
+                  <IconButton onClick={handleCopyLink}>
+                    {copiedLink ? <Check size={16} /> : <Copy size={16} />}
+                  </IconButton>
+                </Info>
+              </InfoContainer>
+              <QRCodeContainer>
+                <QRCodeCanvas
+                  value={URL}
+                  style={{ width: "100%", maxWidth: "400px", height: "auto" }}
+                />
+              </QRCodeContainer>
+              <Version>Version {VERSION}</Version>
+            </>
+          )}
         </Content>
       </Modal>
     </QRCodeModalContainer>
