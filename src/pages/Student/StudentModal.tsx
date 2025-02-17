@@ -1,14 +1,16 @@
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { User } from "lucide-react";
 import {
   registerModal,
   toggleModalVisibility,
   selectModalVisibility,
   unregisterModal,
-} from "../../store/modalSlice";
-import { useGetStudentsQuery, useGetClassInfoQuery } from "../../services/api";
+} from "@/store/modalSlice";
+import { useGetStudentsQuery, useGetClassInfoQuery } from "@/services/api";
 import { StudentTable } from "@/modules/StudentTable";
 import { Modal } from "@/components/Modal";
+import { Content, TitleContainer } from "./styles";
 
 const MODAL_ID = "student-modal";
 
@@ -20,16 +22,16 @@ const StudentModal: FC = () => {
   const { data: classInfo, isLoading: isLoadingClassInfo } =
     useGetClassInfoQuery();
 
+  const handleClose = (): void => {
+    dispatch(toggleModalVisibility({ id: MODAL_ID, visible: false }));
+  };
+
   useEffect(() => {
     dispatch(registerModal({ id: MODAL_ID, visible: true }));
     return () => {
       dispatch(unregisterModal({ modalId: MODAL_ID }));
     };
   }, [dispatch]);
-
-  const handleClose = (): void => {
-    dispatch(toggleModalVisibility({ id: MODAL_ID, visible: false }));
-  };
 
   if (!isVisible) {
     return null;
@@ -41,8 +43,16 @@ const StudentModal: FC = () => {
 
   return (
     <Modal isOpen={isVisible} onClose={handleClose}>
-      {classInfo.name} Students: {classInfo.currentCount}/{classInfo.maxCount}
-      <StudentTable />
+      <Content>
+        <TitleContainer>
+          <p>{classInfo.name}</p>
+          <User size={16} />
+          <p>
+            {classInfo.currentCount}/{classInfo.maxCount}
+          </p>
+        </TitleContainer>
+        <StudentTable />
+      </Content>
     </Modal>
   );
 };

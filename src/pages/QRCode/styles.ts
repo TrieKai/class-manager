@@ -4,59 +4,75 @@ export const PageContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  overflow-y: hidden;
 `;
 
-export const Title = styled.div`
-  text-align: center;
-  margin-bottom: 32px;
-
-  h1 {
-    margin: 0 0 8px 0;
-    font-size: 28px;
-    font-weight: 600;
-  }
-
-  div {
-    color: #666;
-    font-size: 16px;
-  }
-`;
-
-export const QRCodeContainer = styled.div`
+export const QRCodeModalContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  margin: 32px 0;
+  width: 100%;
+  height: 100%;
+`;
 
-  canvas {
-    padding: 16px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+`;
+
+export const BackButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  border: none;
+  background: none;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0px;
 `;
 
 export const InfoContainer = styled.div`
   display: flex;
+  gap: 16px;
   flex-direction: column;
-  gap: 24px;
+  font-weight: 600;
+`;
 
-  > div {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+export const Info = styled.div`
+  display: flex;
+  gap: 8px;
+`;
 
-    label {
-      font-weight: 500;
-      color: #666;
-    }
+export const IconButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgb(11, 140, 240);
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: white;
+  border-radius: 4px;
+`;
 
-    div {
-      padding: 12px;
-      background: #f8f9fa;
-      border-radius: 4px;
-      font-family: monospace;
-      font-size: 14px;
-    }
-  }
+export const QRCodeContainer = styled.div`
+  padding: 20px;
+  background-color: white;
+  text-align: center;
+`;
+
+export const Version = styled.div`
+  display: flex;
+  justify-content: center;
 `;

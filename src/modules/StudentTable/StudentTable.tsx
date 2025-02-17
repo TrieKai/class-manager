@@ -15,8 +15,8 @@ export const StudentTable: FC = () => {
   const { data: students } = useGetStudentsQuery();
 
   const tabItems: TabItem[] = [
-    { key: "list", label: "List View" },
-    { key: "group", label: "Group View" },
+    { key: "list", label: "Student List" },
+    { key: "group", label: "Group" },
   ];
 
   const menuItems = [

@@ -1,12 +1,11 @@
 import { FC } from "react";
 import { useUpdateStudentCountMutation } from "@/services/api";
 import {
-  CountButton,
-  Counter,
-  CounterContainer,
-  NameCell,
-  PositionCell,
-  StudentRow,
+  TableViewCardCountButton,
+  TableViewCardPosition,
+  TableViewStudentCard,
+  TableViewCardCounter,
+  TableViewCardName,
 } from "./styles";
 import type { Student } from "@/types/student";
 
@@ -34,27 +33,29 @@ const StudentTableCard: FC<Props> = ({ student }) => {
   };
 
   return (
-    <StudentRow isGuest={student.isGuest}>
-      <PositionCell>{student.position}</PositionCell>
-      <NameCell>{student.name}</NameCell>
-      <CounterContainer>
-        <Counter>
-          <CountButton
-            onClick={() => handleDecrement(student.id)}
-            disabled={student.disabled || student.count === 0}
-          >
-            -
-          </CountButton>
-          <span>{student.count}</span>
-          <CountButton
-            onClick={() => handleIncrement(student.id)}
-            disabled={student.disabled}
-          >
-            +
-          </CountButton>
-        </Counter>
-      </CounterContainer>
-    </StudentRow>
+    <TableViewStudentCard isGuest={student.isGuest}>
+      <TableViewCardPosition disabled={student.disabled}>
+        {student.position}
+      </TableViewCardPosition>
+      <TableViewCardName>{student.name}</TableViewCardName>
+      <TableViewCardCounter>
+        <TableViewCardCountButton
+          color="rgb(240, 73, 106)"
+          disabled={student.disabled || student.count === 0}
+          onClick={() => handleDecrement(student.id)}
+        >
+          - 1
+        </TableViewCardCountButton>
+        <span>{student.count}</span>
+        <TableViewCardCountButton
+          color="rgb(123, 204, 58)"
+          disabled={student.disabled}
+          onClick={() => handleIncrement(student.id)}
+        >
+          + 1
+        </TableViewCardCountButton>
+      </TableViewCardCounter>
+    </TableViewStudentCard>
   );
 };
 

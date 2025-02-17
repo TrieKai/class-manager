@@ -2,7 +2,6 @@ import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
 import { Check, ChevronLeft, Copy } from "lucide-react";
-import styled from "styled-components";
 import { useGetClassInfoQuery } from "../../services/api";
 import {
   registerModal,
@@ -11,66 +10,20 @@ import {
   selectModalVisibility,
 } from "../../store/modalSlice";
 import { Modal } from "../../components/Modal";
+import {
+  BackButton,
+  Content,
+  IconButton,
+  Info,
+  InfoContainer,
+  QRCodeContainer,
+  QRCodeModalContainer,
+  Version,
+} from "./styles";
 
 const MODAL_ID = "qrcode-modal";
 
-const QRCodeModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-`;
-
-const BackButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  align-self: flex-start;
-  border: none;
-  background: none;
-  flex-direction: row;
-  align-items: center;
-  align-self: flex-start;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-weight: 600;
-  padding: 0px;
-`;
-
-const InfoContainer = styled.div`
-  margin: 20px 0;
-  padding: 15px;
-  display: flex;
-`;
-
-const IconButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: none;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  color: #6c757d;
-  border-radius: 4px;
-
-  &:hover {
-    background: #e9ecef;
-  }
-
-  span {
-    font-size: 0.875rem;
-    color: #28a745;
-  }
-`;
-
-const QRCodeContainer = styled.div`
-  text-align: center;
-  margin: 20px 0;
-`;
+const URL = "https://www.classswift.viewsonic.io";
 
 const QRCodeModal: FC = () => {
   const dispatch = useDispatch();
@@ -92,7 +45,7 @@ const QRCodeModal: FC = () => {
   };
 
   const handleCopyLink = (): void => {
-    navigator.clipboard.writeText("https://www.classswift.viewsonic.io/");
+    navigator.clipboard.writeText(URL);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
   };
@@ -118,33 +71,33 @@ const QRCodeModal: FC = () => {
 
   return (
     <QRCodeModalContainer>
-      <Modal
-        title={
+      <Modal isOpen={isVisible} onClose={handleClose}>
+        <Content>
           <BackButton>
             <ChevronLeft size={24} />
             Back to Class List
           </BackButton>
-        }
-        isOpen={isVisible}
-        onClose={handleClose}
-      >
-        Join Class
-        <InfoContainer>
-          <span>ID: {classInfo.id}</span>
-          <IconButton onClick={handleCopyId}>
-            {copiedId ? <Check size={16} /> : <Copy size={16} />}
-          </IconButton>
-          <span>Link</span>
-          <IconButton onClick={handleCopyLink}>
-            {copiedLink ? <Check size={16} /> : <Copy size={16} />}
-          </IconButton>
-        </InfoContainer>
-        <QRCodeContainer>
-          <QRCodeCanvas
-            value="https://www.classswift.viewsonic.io/"
-            size={300}
-          />
-        </QRCodeContainer>
+          <InfoContainer>
+            <Info>Join {classInfo.name}</Info>
+            <Info>
+              <span>ID: {classInfo.id}</span>
+              <IconButton onClick={handleCopyId}>
+                {copiedId ? <Check size={16} /> : <Copy size={16} />}
+              </IconButton>
+              <span>Link</span>
+              <IconButton onClick={handleCopyLink}>
+                {copiedLink ? <Check size={16} /> : <Copy size={16} />}
+              </IconButton>
+            </Info>
+          </InfoContainer>
+          <QRCodeContainer>
+            <QRCodeCanvas
+              value={URL}
+              style={{ width: "100%", height: "auto" }}
+            />
+          </QRCodeContainer>
+          <Version>Version 1.0.0</Version>
+        </Content>
       </Modal>
     </QRCodeModalContainer>
   );

@@ -18,6 +18,9 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
     background-color: #f5f5f5;
     background-image: url("/background.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   #root {
@@ -31,13 +34,16 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppContainer = styled.main`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
   gap: 12px;
   padding: 12px;
   width: 100%;
   height: 100%;
   @media (max-width: 1024px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
   }
 `;
 

@@ -5,18 +5,17 @@ export const TabContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
+  z-index: 1;
 `;
 
 export const Tab = styled.button<{ active: boolean }>`
-  padding: 8px 16px;
+  padding: 12px 24px;
   border: none;
-  background: ${(props) => (props.active ? "#007bff" : "#f0f0f0")};
-  color: ${(props) => (props.active ? "white" : "black")};
-  border-radius: 4px;
-  cursor: pointer;
+  background: ${(props) => (props.active ? "white" : "rgb(195, 199, 200)")};
+  color: ${(props) => (props.active ? "rgb(11, 140, 240)" : "black")};
+  font-weight: 600;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background: ${(props) => (props.active ? "#0056b3" : "#e0e0e0")};
-  }
+  cursor: pointer;
 `;

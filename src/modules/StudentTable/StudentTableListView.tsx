@@ -1,6 +1,6 @@
 import { FC } from "react";
 import StudentTableCard from "./StudentTableCard";
-import { StudentTableListViewContainer } from "./styles";
+import { TableListViewContainer } from "./styles";
 import type { Student } from "../../types/student";
 
 interface Props {
@@ -9,11 +9,11 @@ interface Props {
 
 const StudentTableListView: FC<Props> = ({ students }) => {
   return (
-    <StudentTableListViewContainer>
+    <TableListViewContainer>
       {students.map((student) => (
         <StudentTableCard student={student} key={student.id} />
       ))}
-    </StudentTableListViewContainer>
+    </TableListViewContainer>
   );
 };
 

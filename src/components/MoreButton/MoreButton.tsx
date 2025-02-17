@@ -38,7 +38,7 @@ export const MoreButton: FC<MoreButtonProps> = ({ items }) => {
   return (
     <div style={{ position: "relative" }}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-        <MoreVertical size={16} />
+        <MoreVertical size={24} />
       </Button>
       {isOpen && (
         <Menu ref={menuRef}>
