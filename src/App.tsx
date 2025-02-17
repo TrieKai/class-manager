@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { Provider } from "react-redux";
+import styled, { createGlobalStyle } from "styled-components";
 import { store } from "./store";
 import { Student } from "./pages/Student";
 import { QRCode } from "./pages/QRCode";
-import styled, { createGlobalStyle } from "styled-components";
+import { device } from "./styles/breakpoints";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -35,15 +36,15 @@ const GlobalStyle = createGlobalStyle`
 
 const AppContainer = styled.main`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
   gap: 12px;
   padding: 12px;
   width: 100%;
   height: 100%;
-  @media (max-width: 1024px) {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, 1fr);
+  ${device.tabletUp} {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
   }
 `;
 

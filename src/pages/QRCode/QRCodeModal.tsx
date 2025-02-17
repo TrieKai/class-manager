@@ -1,17 +1,19 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
 import { Check, ChevronLeft, Copy } from "lucide-react";
-import { useGetClassInfoQuery } from "../../services/api";
+import { useGetClassInfoQuery } from "@/services/api";
 import {
   registerModal,
   unregisterModal,
   toggleModalVisibility,
   selectModalVisibility,
-} from "../../store/modalSlice";
-import { Modal } from "../../components/Modal";
+} from "@/store/modalSlice";
+import { Modal } from "@/components/Modal";
+import pkg from "../../../package.json";
 import {
   BackButton,
+  ClassInfo,
   Content,
   IconButton,
   Info,
@@ -21,6 +23,7 @@ import {
   Version,
 } from "./styles";
 
+const VERSION = pkg.version;
 const MODAL_ID = "qrcode-modal";
 
 const URL = "https://www.classswift.viewsonic.io";
@@ -32,23 +35,23 @@ const QRCodeModal: FC = () => {
   const [copiedId, setCopiedId] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  const handleClose = (): void => {
+  const handleClose = useCallback((): void => {
     dispatch(toggleModalVisibility({ id: MODAL_ID, visible: false }));
-  };
+  }, [dispatch]);
 
-  const handleCopyId = (): void => {
+  const handleCopyId = useCallback((): void => {
     if (classInfo) {
       navigator.clipboard.writeText(classInfo.id);
       setCopiedId(true);
       setTimeout(() => setCopiedId(false), 2000);
     }
-  };
+  }, [classInfo]);
 
-  const handleCopyLink = (): void => {
+  const handleCopyLink = useCallback((): void => {
     navigator.clipboard.writeText(URL);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
-  };
+  }, []);
 
   useEffect(() => {
     dispatch(registerModal({ id: MODAL_ID, visible: true }));
@@ -77,13 +80,15 @@ const QRCodeModal: FC = () => {
             <ChevronLeft size={24} />
             Back to Class List
           </BackButton>
+          <ClassInfo>Join {classInfo.name}</ClassInfo>
           <InfoContainer>
-            <Info>Join {classInfo.name}</Info>
             <Info>
               <span>ID: {classInfo.id}</span>
               <IconButton onClick={handleCopyId}>
                 {copiedId ? <Check size={16} /> : <Copy size={16} />}
               </IconButton>
+            </Info>
+            <Info>
               <span>Link</span>
               <IconButton onClick={handleCopyLink}>
                 {copiedLink ? <Check size={16} /> : <Copy size={16} />}
@@ -96,7 +101,7 @@ const QRCodeModal: FC = () => {
               style={{ width: "100%", height: "auto" }}
             />
           </QRCodeContainer>
-          <Version>Version 1.0.0</Version>
+          <Version>Version {VERSION}</Version>
         </Content>
       </Modal>
     </QRCodeModalContainer>

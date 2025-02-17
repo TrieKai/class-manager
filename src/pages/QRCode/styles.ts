@@ -42,15 +42,20 @@ export const BackButton = styled.button`
   padding: 0px;
 `;
 
+export const ClassInfo = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+`;
+
 export const InfoContainer = styled.div`
   display: flex;
-  gap: 16px;
-  flex-direction: column;
+  gap: 24px;
   font-weight: 600;
 `;
 
 export const Info = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
 `;
 
@@ -58,16 +63,16 @@ export const IconButton = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 4px;
   background: rgb(11, 140, 240);
   border: none;
-  padding: 4px 8px;
-  cursor: pointer;
   color: white;
   border-radius: 4px;
+  cursor: pointer;
 `;
 
 export const QRCodeContainer = styled.div`
-  padding: 20px;
+  padding: 16px;
   background-color: white;
   text-align: center;
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/breakpoints";
 
 export const TableContainer = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ export const ActionsContainer = styled.div`
 /* TableView */
 export const TableListViewContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-auto-rows: min-content;
   gap: 12px;
   flex-grow: 1;
@@ -25,14 +26,26 @@ export const TableListViewContainer = styled.div`
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 0px;
+
+  ${device.tabletUp} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${device.laptopUp} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  ${device.desktopUp} {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 export const TableViewStudentCard = styled.div<{ isGuest: boolean }>`
   display: grid;
   gap: 16px;
   align-items: center;
   height: fit-content;
-  background: ${(props) => (props.isGuest ? "#f5f5f5" : "white")};
-  color: ${(props) => (props.isGuest ? "#666" : "inherit")};
+  background: "white";
+  color: ${(props) => (props.isGuest ? "rgb(195, 199, 200)" : "inherit")};
   border: ${(props) =>
     props.isGuest ? "1px solid #ddd" : "1px solid rgb(11, 140, 240)"};
   border-radius: 8px;
@@ -45,7 +58,7 @@ export const TableViewCardPosition = styled.div<{ disabled?: boolean }>`
   justify-content: center;
   padding: 4px;
   background-color: ${(props) =>
-    props.disabled ? "#ddd" : "rgb(11, 140, 240)"};
+    props.disabled ? "rgb(195, 199, 200)" : "rgb(11, 140, 240)"};
   color: white;
 `;
 export const TableViewCardName = styled.div`
@@ -54,13 +67,15 @@ export const TableViewCardName = styled.div`
   justify-content: center;
   font-weight: 500;
 `;
-export const TableViewCardCounter = styled.div`
+export const TableViewCardCounter = styled.div<{ disabled?: boolean }>`
   display: flex;
   padding: 4px;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
+  border-top: 1px solid
+    ${(props) => (props.disabled ? "rgb(195, 199, 200)" : "rgb(11, 140, 240)")};
 `;
 export const TableViewCardCountButton = styled.button<{
   color: string;
@@ -69,7 +84,8 @@ export const TableViewCardCountButton = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) => (props.disabled ? "#ddd" : props.color)};
+  background: ${(props) =>
+    props.disabled ? "rgb(195, 199, 200)" : props.color};
   border: none;
   color: white;
   border-radius: 2px;

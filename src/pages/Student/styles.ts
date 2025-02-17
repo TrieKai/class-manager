@@ -25,3 +25,8 @@ export const TitleContainer = styled.div`
   gap: 8px;
   margin: 24px;
 `;
+
+export const ClassInfo = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+`;

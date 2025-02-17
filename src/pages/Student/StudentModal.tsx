@@ -10,7 +10,7 @@ import {
 import { useGetStudentsQuery, useGetClassInfoQuery } from "@/services/api";
 import { StudentTable } from "@/modules/StudentTable";
 import { Modal } from "@/components/Modal";
-import { Content, TitleContainer } from "./styles";
+import { ClassInfo, Content, TitleContainer } from "./styles";
 
 const MODAL_ID = "student-modal";
 
@@ -45,7 +45,7 @@ const StudentModal: FC = () => {
     <Modal isOpen={isVisible} onClose={handleClose}>
       <Content>
         <TitleContainer>
-          <p>{classInfo.name}</p>
+          <ClassInfo>{classInfo.name}</ClassInfo>
           <User size={16} />
           <p>
             {classInfo.currentCount}/{classInfo.maxCount}

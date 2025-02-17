@@ -1,9 +1,11 @@
 import { FC } from "react";
 import {
-  GroupViewCard,
   GroupViewContainer,
   GroupViewGrid,
   GroupViewTitle,
+  TableViewCardName,
+  TableViewCardPosition,
+  TableViewStudentCard,
 } from "./styles";
 import type { Student } from "../../types/student";
 
@@ -28,10 +30,12 @@ const StudentTableGroupView: FC<Props> = ({ students }) => {
           <GroupViewTitle>Group {index + 1}</GroupViewTitle>
           <GroupViewGrid>
             {group.map((student) => (
-              <GroupViewCard key={student.id} isGuest={student.isGuest}>
-                <div>{student.position}</div>
-                <div>{student.name}</div>
-              </GroupViewCard>
+              <TableViewStudentCard isGuest={student.isGuest}>
+                <TableViewCardPosition disabled={student.disabled}>
+                  {student.position}
+                </TableViewCardPosition>
+                <TableViewCardName>{student.name}</TableViewCardName>
+              </TableViewStudentCard>
             ))}
           </GroupViewGrid>
         </div>

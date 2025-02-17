@@ -38,7 +38,7 @@ const StudentTableCard: FC<Props> = ({ student }) => {
         {student.position}
       </TableViewCardPosition>
       <TableViewCardName>{student.name}</TableViewCardName>
-      <TableViewCardCounter>
+      <TableViewCardCounter disabled={student.disabled}>
         <TableViewCardCountButton
           color="rgb(240, 73, 106)"
           disabled={student.disabled || student.count === 0}
