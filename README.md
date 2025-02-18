@@ -2,6 +2,15 @@
 
 A React-based class management application built with TypeScript, Redux, and Styled Components. This application helps teachers manage their classes efficiently by providing student grouping, attendance tracking, and easy sharing functionality.
 
+## Demo
+
+🔗 [Live Demo](https://class-manager-tau.vercel.app/)
+
+## Screenshots
+
+![Screenshot](https://github.com/TrieKai/class-manager/blob/master/public/screenshot.png?raw=true)
+
+
 ## Features
 
 ### Student Management
