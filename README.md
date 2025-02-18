@@ -48,20 +48,14 @@ A React-based class management application built with TypeScript, Redux, and Sty
 - npm or yarn package manager
 
 ### Installation
-1. Clone the repository
-   ```bash
-   git clone https://github.com/your-username/class-manager.git
-   cd class-manager
-   ```
-
-2. Install dependencies
+1. Install dependencies
    ```bash
    npm install
    # or
    yarn install
    ```
 
-3. Start the development server
+2. Start the development server
    ```bash
    npm run dev
    # or
@@ -69,7 +63,7 @@ A React-based class management application built with TypeScript, Redux, and Sty
    ```
    The application will be available at `http://localhost:5173`
 
-4. Build for production
+3. Build for production
    ```bash
    npm run build
    # or
