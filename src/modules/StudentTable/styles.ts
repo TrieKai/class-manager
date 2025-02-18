@@ -25,7 +25,8 @@ export const TableListViewContainer = styled.div`
   background-color: white;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  box-shadow: ${({ theme }) => `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
+  box-shadow: ${({ theme }) =>
+    `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
 
   ${device.tabletUp} {
     grid-template-columns: repeat(2, 1fr);
@@ -38,6 +39,10 @@ export const TableListViewContainer = styled.div`
   ${device.desktopUp} {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  ${device.desktopLUp} {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
 export const TableViewStudentCard = styled.div<{ disabled: boolean }>`
   display: grid;
@@ -45,7 +50,8 @@ export const TableViewStudentCard = styled.div<{ disabled: boolean }>`
   align-items: center;
   height: fit-content;
   background: "white";
-  color: ${({ theme, disabled }) => (disabled ? theme.colors.text.disabled : "inherit")};
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.text.disabled : "inherit"};
   border: ${({ theme, disabled }) =>
     `1px solid ${disabled ? theme.colors.border : theme.colors.primary}`};
   border-radius: ${({ theme }) => theme.borderRadius.md};
@@ -75,7 +81,8 @@ export const TableViewCardCounter = styled.div<{ disabled?: boolean }>`
   gap: 12px;
   width: 100%;
   border-top: 1px solid
-    ${({ theme, disabled }) => (disabled ? theme.colors.text.disabled : theme.colors.primary)};
+    ${({ theme, disabled }) =>
+      disabled ? theme.colors.text.disabled : theme.colors.primary};
 `;
 export const TableViewCardCountButton = styled.button<{
   color: string;
@@ -101,7 +108,8 @@ export const GroupViewContainer = styled.div`
   flex-grow: 1;
   padding: 12px;
   background-color: white;
-  box-shadow: ${({ theme }) => `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
+  box-shadow: ${({ theme }) =>
+    `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 `;
@@ -117,7 +125,8 @@ export const GroupViewGroup = styled.div`
   background-color: white;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  box-shadow: ${({ theme }) => `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
+  box-shadow: ${({ theme }) =>
+    `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
 `;
 export const GroupViewGrid = styled.div`
   display: grid;
