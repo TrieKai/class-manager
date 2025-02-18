@@ -11,8 +11,8 @@ export const TabContainer = styled.div`
 export const Tab = styled.button<{ active: boolean }>`
   padding: 12px 24px;
   border: none;
-  background: ${(props) => (props.active ? "white" : "rgb(195, 199, 200)")};
-  color: ${(props) => (props.active ? "rgb(11, 140, 240)" : "black")};
+  background: ${({ theme, active }) => active ? theme.colors.surface.primary : theme.colors.text.disabled};
+  color: ${({ theme, active }) => active ? theme.colors.primary : theme.colors.text.primary};
   font-weight: 600;
   border-top-left-radius: ${({ theme }) => theme.borderRadius.sm};
   border-top-right-radius: ${({ theme }) => theme.borderRadius.sm};

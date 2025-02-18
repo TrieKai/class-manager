@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useCallback } from "react";
+import { FC, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { QRCodeCanvas } from "qrcode.react";
 import { Check, ChevronLeft, Copy } from "lucide-react";
@@ -35,23 +35,23 @@ const QRCodeModal: FC = () => {
   const [copiedId, setCopiedId] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  const handleClose = useCallback((): void => {
+  const handleClose = (): void => {
     dispatch(toggleModalVisibility({ id: MODAL_ID, visible: false }));
-  }, [dispatch]);
+  };
 
-  const handleCopyId = useCallback((): void => {
+  const handleCopyId = (): void => {
     if (classInfo) {
       navigator.clipboard.writeText(classInfo.id);
       setCopiedId(true);
       setTimeout(() => setCopiedId(false), 2000);
     }
-  }, [classInfo]);
+  };
 
-  const handleCopyLink = useCallback((): void => {
+  const handleCopyLink = (): void => {
     navigator.clipboard.writeText(URL);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
-  }, []);
+  };
 
   useEffect(() => {
     dispatch(registerModal({ id: MODAL_ID, visible: true }));

@@ -24,7 +24,7 @@ export const TitleContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 24px;
+  margin: 16px 24px;
 `;
 
 export const ClassInfo = styled.p`

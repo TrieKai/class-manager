@@ -10,7 +10,7 @@ export const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #f0f0f0;
+    background: ${({ theme }) => theme.colors.surface.tertiary};
   }
 `;
 
@@ -19,9 +19,9 @@ export const Menu = styled.div`
   top: 100%;
   right: 0;
   background: white;
-  border: 1px solid #ddd;
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px ${({ theme }) => theme.colors.shadow.light};
   z-index: 1000;
   min-width: 150px;
 `;
@@ -32,6 +32,6 @@ export const MenuItem = styled.div`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: ${({ theme }) => theme.colors.surface.secondary};
   }
 `;

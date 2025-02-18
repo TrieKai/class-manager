@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useUpdateStudentCountMutation } from "@/services/api";
+import { theme } from "@/styles/theme";
 import {
   TableViewCardCountButton,
   TableViewCardPosition,
@@ -40,7 +41,7 @@ const StudentTableCard: FC<Props> = ({ student }) => {
       <TableViewCardName>{student.name}</TableViewCardName>
       <TableViewCardCounter disabled={student.disabled}>
         <TableViewCardCountButton
-          color="rgb(240, 73, 106)"
+          color={theme.colors.error}
           disabled={student.disabled || student.count === 0}
           onClick={() => handleDecrement(student.id)}
         >
@@ -48,7 +49,7 @@ const StudentTableCard: FC<Props> = ({ student }) => {
         </TableViewCardCountButton>
         <span>{student.count}</span>
         <TableViewCardCountButton
-          color="rgb(123, 204, 58)"
+          color={theme.colors.success}
           disabled={student.disabled}
           onClick={() => handleIncrement(student.id)}
         >

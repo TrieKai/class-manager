@@ -25,7 +25,7 @@ export const TableListViewContainer = styled.div`
   background-color: white;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 0px;
+  box-shadow: ${({ theme }) => `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
 
   ${device.tabletUp} {
     grid-template-columns: repeat(2, 1fr);
@@ -45,9 +45,9 @@ export const TableViewStudentCard = styled.div<{ disabled: boolean }>`
   align-items: center;
   height: fit-content;
   background: "white";
-  color: ${(props) => (props.disabled ? "rgb(195, 199, 200)" : "inherit")};
-  border: ${(props) =>
-    props.disabled ? "1px solid #ddd" : "1px solid rgb(11, 140, 240)"};
+  color: ${({ theme, disabled }) => (disabled ? theme.colors.text.disabled : "inherit")};
+  border: ${({ theme, disabled }) =>
+    `1px solid ${disabled ? theme.colors.border : theme.colors.primary}`};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   opacity: ${(props) => (props.disabled ? 0.7 : 1)};
   overflow: hidden;
@@ -57,8 +57,8 @@ export const TableViewCardPosition = styled.div<{ disabled?: boolean }>`
   align-items: center;
   justify-content: center;
   padding: 4px;
-  background-color: ${(props) =>
-    props.disabled ? "rgb(195, 199, 200)" : "rgb(11, 140, 240)"};
+  background-color: ${({ theme, disabled }) =>
+    disabled ? theme.colors.text.disabled : theme.colors.primary};
   color: white;
 `;
 export const TableViewCardName = styled.div`
@@ -75,7 +75,7 @@ export const TableViewCardCounter = styled.div<{ disabled?: boolean }>`
   gap: 12px;
   width: 100%;
   border-top: 1px solid
-    ${(props) => (props.disabled ? "rgb(195, 199, 200)" : "rgb(11, 140, 240)")};
+    ${({ theme, disabled }) => (disabled ? theme.colors.text.disabled : theme.colors.primary)};
 `;
 export const TableViewCardCountButton = styled.button<{
   color: string;
@@ -84,8 +84,8 @@ export const TableViewCardCountButton = styled.button<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${(props) =>
-    props.disabled ? "rgb(195, 199, 200)" : props.color};
+  background: ${({ theme, disabled, color }) =>
+    disabled ? theme.colors.text.disabled : color};
   border: none;
   color: white;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
@@ -101,7 +101,7 @@ export const GroupViewContainer = styled.div`
   flex-grow: 1;
   padding: 12px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 0px;
+  box-shadow: ${({ theme }) => `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 `;
@@ -117,7 +117,7 @@ export const GroupViewGroup = styled.div`
   background-color: white;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px 0px;
+  box-shadow: ${({ theme }) => `${theme.colors.shadow.medium} 0px 0px 10px 0px`};
 `;
 export const GroupViewGrid = styled.div`
   display: grid;
@@ -128,8 +128,9 @@ export const GroupViewGrid = styled.div`
 export const GroupViewCard = styled.div<{ disabled: boolean }>`
   position: relative;
   padding: 16px;
-  background: ${(props) => (props.disabled ? "#f5f5f5" : "white")};
-  border: 1px solid #ddd;
+  background: ${({ theme, disabled }) =>
+    disabled ? theme.colors.surface.secondary : theme.colors.surface.primary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   flex-direction: column;

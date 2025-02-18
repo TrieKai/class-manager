@@ -9,8 +9,8 @@ export const CardGrid = styled.div`
 
 export const CardContainer = styled.div<{ disabled: boolean }>`
   padding: 16px;
-  background: ${(props) => (props.disabled ? "#f5f5f5" : "white")};
-  border: 1px solid #ddd;
+  background: ${({ theme, disabled }) => disabled ? theme.colors.surface.secondary : theme.colors.surface.primary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@ export const StudentItem = styled.div`
   }
 
   div:last-child {
-    color: #666;
+    color: ${({ theme }) => theme.colors.text.secondary};
     font-size: ${({ theme }) => theme.typography.fontSize.md};
   }
 `;
@@ -42,14 +42,14 @@ export const Counter = styled.div`
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #f5f5f5;
+  background: ${({ theme }) => theme.colors.surface.secondary};
   padding: 4px 12px;
   border-radius: 20px;
 `;
 
 export const CountButton = styled.button<{ disabled?: boolean }>`
-  background: ${(props) => (props.disabled ? "#ddd" : "white")};
-  border: 1px solid #ddd;
+  background: ${({ theme, disabled }) => disabled ? theme.colors.surface.disabled : theme.colors.surface.primary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 50%;
   width: 24px;
   height: 24px;
@@ -57,9 +57,9 @@ export const CountButton = styled.button<{ disabled?: boolean }>`
   align-items: center;
   justify-content: center;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
-  color: ${(props) => (props.disabled ? "#999" : "#333")};
+  color: ${({ theme, disabled }) => disabled ? theme.colors.text.disabled : theme.colors.text.primary};
 
   &:hover:not(:disabled) {
-    background: #f0f0f0;
+    background: ${({ theme }) => theme.colors.surface.tertiary};
   }
 `;

@@ -64,7 +64,7 @@ export const IconButton = styled.button`
   align-items: center;
   gap: 8px;
   padding: 4px;
-  background: rgb(11, 140, 240);
+  background: ${({ theme }) => theme.colors.primary};
   border: none;
   color: white;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
