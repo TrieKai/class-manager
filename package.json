@@ -19,6 +19,7 @@
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
+    "@types/node": "^22.13.4",
     "@types/qrcode.react": "^1.0.5",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",

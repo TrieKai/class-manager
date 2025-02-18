@@ -11,7 +11,7 @@ import {
 } from "@/store/modalSlice";
 import { Modal } from "@/components/Modal";
 import { Skeleton } from "@/components/Skeleton";
-import pkg from "../../../package.json";
+import { APP_VERSION } from "@/constants";
 import {
   BackButton,
   ClassInfo,
@@ -24,7 +24,6 @@ import {
   Version,
 } from "./styles";
 
-const VERSION = pkg.version;
 const MODAL_ID = "qrcode-modal";
 
 const URL = "https://www.classswift.viewsonic.io";
@@ -117,7 +116,7 @@ const QRCodeModal: FC = () => {
                   style={{ width: "100%", maxWidth: "400px", height: "auto" }}
                 />
               </QRCodeContainer>
-              <Version>Version {VERSION}</Version>
+              <Version>Version {APP_VERSION}</Version>
             </>
           )}
         </Content>
