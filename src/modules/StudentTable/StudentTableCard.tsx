@@ -33,7 +33,7 @@ const StudentTableCard: FC<Props> = ({ student }) => {
   };
 
   return (
-    <TableViewStudentCard isGuest={student.isGuest}>
+    <TableViewStudentCard disabled={student.isGuest}>
       <TableViewCardPosition disabled={student.disabled}>
         {student.position}
       </TableViewCardPosition>

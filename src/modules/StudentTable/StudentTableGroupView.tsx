@@ -30,7 +30,7 @@ const StudentTableGroupView: FC<Props> = ({ students }) => {
           <GroupViewTitle>Group {index + 1}</GroupViewTitle>
           <GroupViewGrid>
             {group.map((student) => (
-              <TableViewStudentCard isGuest={student.isGuest}>
+              <TableViewStudentCard disabled={student.isGuest} key={student.id}>
                 <TableViewCardPosition disabled={student.disabled}>
                   {student.position}
                 </TableViewCardPosition>

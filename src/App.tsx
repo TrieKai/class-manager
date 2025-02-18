@@ -5,6 +5,7 @@ import { store } from "./store";
 import { Student } from "./pages/Student";
 import { QRCode } from "./pages/QRCode";
 import { device } from "./styles/breakpoints";
+import { ThemeProvider } from "./styles/ThemeProvider";
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -12,12 +13,10 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     width: 100%;
     height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-      "Helvetica Neue", sans-serif;
+    font-family: ${({ theme }) => theme.typography.fontFamily};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #f5f5f5;
+    background-color: ${({ theme }) => theme.colors.background};
     background-image: url("/background.svg");
     background-size: cover;
     background-position: center;
@@ -51,11 +50,13 @@ const AppContainer = styled.main`
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <GlobalStyle />
-      <AppContainer>
-        <QRCode />
-        <Student />
-      </AppContainer>
+      <ThemeProvider>
+        <GlobalStyle />
+        <AppContainer>
+          <QRCode />
+          <Student />
+        </AppContainer>
+      </ThemeProvider>
     </Provider>
   );
 };

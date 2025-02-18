@@ -7,15 +7,15 @@ export const CardGrid = styled.div`
   padding: 16px;
 `;
 
-export const CardContainer = styled.div<{ isGuest: boolean }>`
+export const CardContainer = styled.div<{ disabled: boolean }>`
   padding: 16px;
-  background: ${(props) => (props.isGuest ? "#f5f5f5" : "white")};
+  background: ${(props) => (props.disabled ? "#f5f5f5" : "white")};
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   flex-direction: column;
   gap: 12px;
-  opacity: ${(props) => (props.isGuest ? 0.7 : 1)};
+  opacity: ${(props) => (props.disabled ? 0.7 : 1)};
 `;
 
 export const StudentItem = styled.div`
@@ -29,7 +29,7 @@ export const StudentItem = styled.div`
 
   div:last-child {
     color: #666;
-    font-size: 14px;
+    font-size: ${({ theme }) => theme.typography.fontSize.md};
   }
 `;
 

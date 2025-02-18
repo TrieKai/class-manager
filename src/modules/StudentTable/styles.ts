@@ -39,17 +39,17 @@ export const TableListViewContainer = styled.div`
     grid-template-columns: repeat(4, 1fr);
   }
 `;
-export const TableViewStudentCard = styled.div<{ isGuest: boolean }>`
+export const TableViewStudentCard = styled.div<{ disabled: boolean }>`
   display: grid;
   gap: 16px;
   align-items: center;
   height: fit-content;
   background: "white";
-  color: ${(props) => (props.isGuest ? "rgb(195, 199, 200)" : "inherit")};
+  color: ${(props) => (props.disabled ? "rgb(195, 199, 200)" : "inherit")};
   border: ${(props) =>
-    props.isGuest ? "1px solid #ddd" : "1px solid rgb(11, 140, 240)"};
-  border-radius: 8px;
-  opacity: ${(props) => (props.isGuest ? 0.7 : 1)};
+    props.disabled ? "1px solid #ddd" : "1px solid rgb(11, 140, 240)"};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  opacity: ${(props) => (props.disabled ? 0.7 : 1)};
   overflow: hidden;
 `;
 export const TableViewCardPosition = styled.div<{ disabled?: boolean }>`
@@ -88,7 +88,7 @@ export const TableViewCardCountButton = styled.button<{
     props.disabled ? "rgb(195, 199, 200)" : props.color};
   border: none;
   color: white;
-  border-radius: 2px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
@@ -125,12 +125,12 @@ export const GroupViewGrid = styled.div`
   gap: 16px;
   padding: 16px;
 `;
-export const GroupViewCard = styled.div<{ isGuest: boolean }>`
+export const GroupViewCard = styled.div<{ disabled: boolean }>`
   position: relative;
   padding: 16px;
-  background: ${(props) => (props.isGuest ? "#f5f5f5" : "white")};
+  background: ${(props) => (props.disabled ? "#f5f5f5" : "white")};
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   display: flex;
   flex-direction: column;
   gap: 8px;

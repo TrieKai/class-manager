@@ -7,7 +7,7 @@ export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
   background: rgb(246, 246, 246);
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 `;
@@ -19,7 +19,7 @@ export const CloseButton = styled.button`
   background: none;
   border: none;
   color: #666;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   cursor: pointer;
 
   &:hover {

@@ -36,7 +36,7 @@ export const GroupCard: FC<GroupCardProps> = ({ students }) => {
   return (
     <CardGrid>
       {students.map((student) => (
-        <CardContainer key={student.id} isGuest={student.isGuest}>
+        <CardContainer key={student.id} disabled={student.isGuest}>
           <StudentItem>
             <div>{student.name}</div>
             <div>{student.position}</div>

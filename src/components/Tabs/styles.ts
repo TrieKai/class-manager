@@ -14,8 +14,8 @@ export const Tab = styled.button<{ active: boolean }>`
   background: ${(props) => (props.active ? "white" : "rgb(195, 199, 200)")};
   color: ${(props) => (props.active ? "rgb(11, 140, 240)" : "black")};
   font-weight: 600;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.sm};
+  border-top-right-radius: ${({ theme }) => theme.borderRadius.sm};
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 `;

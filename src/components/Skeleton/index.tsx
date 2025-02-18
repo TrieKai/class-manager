@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import styled, { keyframes } from 'styled-components';
+import { FC } from "react";
+import styled, { keyframes } from "styled-components";
 
 interface SkeletonProps {
   width?: string;
@@ -17,16 +17,11 @@ const shimmer = keyframes`
 `;
 
 const SkeletonBase = styled.div<SkeletonProps>`
-  width: ${props => props.width || '100%'};
-  height: ${props => props.height || '20px'};
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
+  width: ${(props) => props.width || "100%"};
+  height: ${(props) => props.height || "20px"};
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   animation: ${shimmer} 1.5s infinite;
 `;
 

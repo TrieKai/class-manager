@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
+  padding: ${({ theme }) => theme.spacing.sm};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   display: flex;
   align-items: center;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
 
   &:hover {
     background: #f0f0f0;
@@ -20,7 +20,7 @@ export const Menu = styled.div`
   right: 0;
   background: white;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   min-width: 150px;

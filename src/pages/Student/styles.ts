@@ -16,7 +16,8 @@ export const Content = styled.div`
 `;
 
 export const Header = styled.div`
-  margin-bottom: 24px;
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const TitleContainer = styled.div`
@@ -27,6 +28,6 @@ export const TitleContainer = styled.div`
 `;
 
 export const ClassInfo = styled.p`
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.typography.fontSize.xl};
   font-weight: 600;
 `;
